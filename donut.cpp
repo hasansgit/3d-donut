@@ -48,7 +48,7 @@ int main() {
 
                 float dist = (x * x + y * y);
                 int color = 1.0f / dist;
-                color = std::fmin(std::fmax(color, 0), gradientSize - 1);
+                color = fmin(fmax(color, 0), gradientSize - 1);
 
                 screen[i][j] = gradient[color];
             }
