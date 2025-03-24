@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
-#include <algorithm>
 
 const int WIDTH = 80;
 const int HEIGHT = 20;
@@ -49,8 +48,7 @@ int main() {
 
                 float dist = (x * x + y * y);
                 int color = 1.0f / dist;
-                color = std::max(color, 0);
-                color = std::min(color, gradientSize - 1);
+                color = std::fmin(std::fmax(color, 0), gradientSize - 1);
 
                 screen[i][j] = gradient[color];
             }
