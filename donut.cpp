@@ -2,11 +2,15 @@
 #include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
+#include <algorithm>
 
 const int WIDTH = 80;
 const int HEIGHT = 20;
 const float aspect = (float)WIDTH / HEIGHT;
 const float pixelAspect = 11.0f / 24.0f;
+
+const char gradient[] = "  .:!/r0@  ";
+const int gradientSize = sizeof(gradient) - 1;
 
 char screen[HEIGHT][WIDTH];
 
@@ -42,9 +46,13 @@ int main() {
                 x += sin(t * 0.001);
 
                 screen[i][j] = ' ';
-                if ((x * x + y * y) <= 0.5) {
-                    screen[i][j] = '@';
-                }
+
+                float dist = (x * x + y * y);
+                int color = 1.0f / dist;
+                color = std::max(color, 0);
+                color = std::min(color, gradientSize - 1);
+
+                screen[i][j] = gradient[color];
             }
         }
     
