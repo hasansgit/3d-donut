@@ -21,7 +21,6 @@ void gotoxy(int x, int y) {
     cd.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cd);
 #else
-    // ANSI escape sequence: сначала номер строки (y), затем номер столбца (x)
     std::cout << "\033[" << y << ";" << x << "H";
 #endif
 }
