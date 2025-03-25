@@ -14,7 +14,16 @@ const int gradientSize = sizeof(gradient) - 1;
 char screen[HEIGHT][WIDTH];
 
 void gotoxy(int x, int y) {
+#ifdef _WIN32
+    #include <windows.h>
+    COORD cd;
+    cd.X = x;
+    cd.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cd);
+#else
+    // ANSI escape sequence: сначала номер строки (y), затем номер столбца (x)
     std::cout << "\033[" << y << ";" << x << "H";
+#endif
 }
 
 void print_screen() {
